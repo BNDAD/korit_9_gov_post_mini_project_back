@@ -1,6 +1,5 @@
 package com.korit.post_mini_project_back.service;
 
-
 import com.korit.post_mini_project_back.dto.request.CreatePostReqDto;
 import com.korit.post_mini_project_back.dto.request.GetFeedListReqDto;
 import com.korit.post_mini_project_back.dto.response.PaginationRespDto;
@@ -19,6 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PostService {
+
     private final FileService fileService;
     private final PostMapper postMapper;
     private final ImageFileMapper imageFileMapper;
@@ -33,7 +33,6 @@ public class PostService {
         }
         files.forEach(file -> file.setReferenceId(post.getPostId()));
         imageFileMapper.insertToMany(files);
-
     }
 
     public PaginationRespDto<Post> getFeeds(GetFeedListReqDto dto) {
@@ -43,7 +42,7 @@ public class PostService {
         List<Post> feeds = postMapper.getFeeds(startIndex, size, user.getUserId());
         int totalElements = postMapper.getTotalCount(user.getUserId());
         int totalPages = (int) Math.ceil(((double) totalElements) / size);
-        return PaginationRespDto.<Post>builder()
+        return PaginationRespDto.<Post> builder()
                 .contents(feeds)
                 .currentPage(dto.getCurrentPage())
                 .size(size)
@@ -52,5 +51,12 @@ public class PostService {
                 .isLast(dto.getCurrentPage() == totalPages)
                 .build();
     }
-
 }
+
+
+
+
+
+
+
+

@@ -55,11 +55,12 @@ public class SecurityConfig {
             auth.requestMatchers("/swagger-ui.html").permitAll();
             auth.requestMatchers("/doc").permitAll();
             auth.requestMatchers("/oauth2/**").permitAll();
-            auth.requestMatchers("/login/**;'").permitAll();
+            auth.requestMatchers("/login/**").permitAll();
+            auth.requestMatchers("/image/**").permitAll();
             auth.anyRequest().authenticated();
         });
 
-        http.exceptionHandling(exeption -> exeption.authenticationEntryPoint(jwtAuthenticationEntryPoint));
+        http.exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint));
 
         return http.build();
     }
